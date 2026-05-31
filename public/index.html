@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxeCinema — Premium Movie Experience</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <div class="loader-overlay" id="pageLoader"><div class="loader-spinner"></div></div>
+  <div id="navbar"></div>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="container hero-content">
+      <span class="hero-badge">Now in Theaters</span>
+      <h1 id="heroTitle">Experience Cinema Like Never Before</h1>
+      <p id="heroDesc">Discover blockbusters, indie gems, and exclusive premieres in our luxury theaters with IMAX and Dolby Atmos.</p>
+      <div class="hero-actions">
+        <a href="/movies.html" class="btn btn-primary btn-lg">Browse Movies</a>
+        <a href="#featured" class="btn btn-outline btn-lg">Explore Featured</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="featured">
+    <div class="container">
+      <h2 class="section-title">Featured <span class="text-gold">Premieres</span></h2>
+      <p class="section-subtitle">Hand-picked cinematic masterpieces</p>
+      <div class="carousel" id="featuredCarousel"></div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--bg-secondary)">
+    <div class="container">
+      <h2 class="section-title">Trending <span class="text-gold">Now</span></h2>
+      <p class="section-subtitle">What everyone's watching this week</p>
+      <div class="movies-grid" id="trendingGrid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="upcoming">
+    <div class="container">
+      <h2 class="section-title">Upcoming <span class="text-gold">Releases</span></h2>
+      <p class="section-subtitle">Mark your calendar for these premieres</p>
+      <div class="carousel" id="upcomingCarousel"></div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/pages/home.js"></script>
+</body>
+</html>

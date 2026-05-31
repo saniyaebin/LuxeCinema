@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dashboard — LuxeCinema</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <div class="loader-overlay" id="pageLoader"><div class="loader-spinner"></div></div>
+  <div id="navbar"></div>
+
+  <main class="container dashboard-layout">
+    <aside class="dashboard-sidebar glass-card">
+      <h3 style="margin-bottom:1rem;font-size:1.1rem">My Account</h3>
+      <nav class="sidebar-nav">
+        <a href="#" class="active" data-tab="tickets">My Tickets</a>
+        <a href="#" data-tab="history">Booking History</a>
+        <a href="#" data-tab="profile">Profile</a>
+      </nav>
+    </aside>
+    <div id="dashboardContent"></div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/qrcode-helper.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/pages/dashboard.js"></script>
+</body>
+</html>

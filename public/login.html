@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — LuxeCinema</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="auth-page">
+    <div class="auth-card glass-card">
+      <h1>Welcome Back</h1>
+      <p class="subtitle">Sign in to book your premium cinema experience</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="you@email.com" required>
+          <div class="form-error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required minlength="6">
+          <div class="form-error" id="passwordError"></div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">Sign In</button>
+      </form>
+      <p class="auth-divider">Don't have an account? <a href="/register.html" class="auth-link">Create one</a></p>
+      <p class="text-muted" style="font-size:0.8rem;margin-top:1rem;text-align:center">
+        Demo: user@luxecinema.com / user1234<br>Admin: admin@luxecinema.com / admin123
+      </p>
+    </div>
+  </div>
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script>
+    document.getElementById('navbar').innerHTML = renderNavbar();
+    initNavbar();
+    if (Auth.isLoggedIn()) window.location.href = '/dashboard.html';
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      try {
+        const data = await API.post('/auth/login', {
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value,
+        });
+        API.setToken(data.token);
+        API.setUser(data.user);
+        Toast.success('Welcome back!');
+        const params = new URLSearchParams(window.location.search);
+        const ret = params.get('return') || (data.user.role === 'admin' ? '/admin.html' : '/dashboard.html');
+        setTimeout(() => { window.location.href = decodeURIComponent(ret); }, 500);
+      } catch (err) {
+        Toast.error(err.message);
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      }
+    });
+  </script>
+</body>
+</html>

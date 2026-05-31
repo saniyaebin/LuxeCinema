@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed — LuxeCinema</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="confirmation-page">
+    <div class="confirmation-card glass-card" id="confirmContent">
+      <div class="loader-spinner" style="margin:2rem auto"></div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/qrcode-helper.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script>
+    document.getElementById('navbar').innerHTML = renderNavbar('dashboard');
+    initNavbar();
+    if (!Auth.requireAuth()) throw new Error('auth');
+
+    const bookingId = new URLSearchParams(window.location.search).get('booking');
+
+    async function load() {
+      try {
+        const { booking } = await API.get(`/bookings/${bookingId}`);
+        document.getElementById('confirmContent').innerHTML = `
+          <div class="confirm-icon">✓</div>
+          <h1>Booking Confirmed!</h1>
+          <p class="text-muted">Your premium cinema experience awaits</p>
+          <div class="booking-code">${booking.bookingCode}</div>
+          <p class="text-muted" style="font-size:0.85rem;margin-bottom:0.5rem">Scan at theater entrance</p>
+          <div class="ticket-qr-wrap" id="ticketQr"></div>
+          <div style="text-align:left;margin:2rem 0;padding:1.5rem;background:var(--bg-glass);border-radius:var(--radius-md)">
+            <p><strong>${booking.movie?.title}</strong></p>
+            <p class="text-muted">${booking.theater?.name}</p>
+            <p class="text-muted">${formatDate(booking.showDate)} · ${booking.showTime}</p>
+            <p>Seats: <span class="text-gold">${booking.seats?.join(', ')}</span></p>
+            <p>Total: <strong class="text-gold">${formatCurrency(booking.totalAmount)}</strong></p>
+          </div>
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <a href="/dashboard.html" class="btn btn-primary">View My Tickets</a>
+            <a href="/movies.html" class="btn btn-outline">Book Another</a>
+          </div>`;
+        await renderQRCode(document.getElementById('ticketQr'), buildTicketQrPayload(booking));
+      } catch (err) {
+        Toast.error(err.message);
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
