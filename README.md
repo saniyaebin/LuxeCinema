@@ -2,6 +2,8 @@
 
 Premium full-stack movie ticket booking platform with a dark cinematic UI, JWT authentication, and MongoDB backend.
 
+https://luxe-cinema.vercel.app/
+
 ## Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript
