@@ -1,6 +1,6 @@
 /** API client for LuxeCinema backend */
 const API = {
- base: 'https://luxecinema-1.onrender.com/api',
+ base:'http://localhost:3000/api',
 
   getToken() {
     return localStorage.getItem('luxecinema_token');

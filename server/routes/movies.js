@@ -21,7 +21,11 @@ router.get('/', async (req, res) => {
     if (status) filter.status = status;
     if (featured === 'true') filter.featured = true;
     if (trending === 'true') filter.trending = true;
+console.log("DB Name:", Movie.db.name);
+console.log("Filter:", filter);
 
+const count = await Movie.countDocuments();
+console.log("Total Movies In DB:", count);
     const movies = await Movie.find(filter).sort({ releaseDate: -1 });
     res.json({ success: true, count: movies.length, movies });
   } catch (err) {

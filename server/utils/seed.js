@@ -159,6 +159,9 @@ async function seed() {
 
   const createdMovies = await Movie.insertMany(movies);
   const createdTheaters = await Theater.insertMany(theaters);
+  console.log("Movies inserted:", createdMovies.length);
+console.log("Theaters inserted:", createdTheaters.length);
+console.log("Current DB:", mongoose.connection.db.databaseName);
 
   const shows = [];
   const today = new Date();
@@ -199,6 +202,9 @@ async function seed() {
   console.log('Seed complete!');
   console.log('Admin: admin@luxecinema.com / admin123');
   console.log('User:  user@luxecinema.com / user1234');
+  console.log(await Movie.countDocuments());
+console.log(await Theater.countDocuments());
+console.log(await User.countDocuments());
   process.exit(0);
 }
 
